@@ -9,10 +9,24 @@ const Login = () => {
         <img className="login-logo" src={logo} alt="" />
         {/* Login Form */}
         <Form>
-          <Form.Item>
+          <Form.Item
+            name="mobile"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your phone number!',
+              },
+            ]}>
             <Input size="large" placeholder="Please enter phone number" />
           </Form.Item>
-          <Form.Item>
+          <Form.Item
+            name="code"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your verification code!',
+              },
+            ]}>
             <Input size="large" placeholder="Please enter verification code" />
           </Form.Item>
           <Form.Item>
