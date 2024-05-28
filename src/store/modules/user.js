@@ -8,7 +8,8 @@ const userStore = createSlice({
     name: "user", 
     // data state 
     initialState: {
-        token: getToken() || ''
+        token: getToken() || '', 
+        userInfo: {}
     }, 
     // synchronous modification method 
     reducers: {
@@ -16,12 +17,15 @@ const userStore = createSlice({
             state.token = action.payload
             // store token in localstorage 
             _setToken(action.payload) 
+        }, 
+        setUserInfo(state, action) {
+            state.userInfo = action.payload
         }
     }
 })
 
 // deconstruct actionCreater 
-const { setToken } = userStore.actions
+const { setToken, setUserInfo } = userStore.actions
 
 // get reducer function 
 const userReducer = userStore.reducer
@@ -36,7 +40,15 @@ const fetchLogin = (loginForm) => {
     }
 }
 
-export { fetchLogin, setToken } 
+// Asychronous method for getting user info 
+const fetchUserInfo = () => {
+    return async (dispatch) => {
+        const res = await request.get('/user/profile')
+        dispatch(setUserInfo(res.data))
+    }
+}
+
+export { fetchLogin, fetchUserInfo, setToken } 
 
 
 export default userReducer
