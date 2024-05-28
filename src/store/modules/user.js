@@ -7,12 +7,14 @@ const userStore = createSlice({
     name: "user", 
     // data state 
     initialState: {
-        token: ''
+        token: localStorage.getItem('token_key') || ''
     }, 
     // synchronous modification method 
     reducers: {
         setToken(state, action) {
             state.token = action.payload
+            // store token in localstorage 
+            localStorage.setItem('token_key', action.payload) 
         }
     }
 })
