@@ -1,6 +1,7 @@
 // axios encapsulation 
 import axios from "axios";
-import { getToken } from "./token";
+import { getToken, removeToken } from "./token";
+import router from "@/router";
 
 // 1. Root domain name configuration
 // 2. Timeout period
@@ -37,6 +38,13 @@ request.interceptors.response.use((response) => {
 }, (error) => {
   // Status codes outside the 2xx range will trigger this function.
   // Do something with the response error
+  // Monitor 401 token expiration
+  console.dir(error)
+  if(error.response.status === 401) {
+    removeToken()
+    router.navigate('/login')
+    window.location.reload()
+  }
   return Promise.reject(error)
 })
 
