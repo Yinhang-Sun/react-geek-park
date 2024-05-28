@@ -2,19 +2,20 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import { request } from "@/utils"
+import { setToken as _setToken, getToken } from "@/utils";
 
 const userStore = createSlice({
     name: "user", 
     // data state 
     initialState: {
-        token: localStorage.getItem('token_key') || ''
+        token: getToken() || ''
     }, 
     // synchronous modification method 
     reducers: {
         setToken(state, action) {
             state.token = action.payload
             // store token in localstorage 
-            localStorage.setItem('token_key', action.payload) 
+            _setToken(action.payload) 
         }
     }
 })
