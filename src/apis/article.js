@@ -9,3 +9,12 @@ export function getChannelAPI () {
         method: 'GET'
     })
 }
+
+// 2. submit article form list 
+export function createArticleAPI(data) {
+    return request ({
+        url: '/mp/articles?draft=false', 
+        method: 'POST', 
+        data
+    })
+}

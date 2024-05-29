@@ -16,7 +16,7 @@ import './index.scss'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { useEffect, useState } from 'react'
-import { getChannelAPI } from '@/apis/article'
+import { createArticleAPI, getChannelAPI } from '@/apis/article'
 
 const { Option } = Select
 
@@ -33,6 +33,24 @@ const Publish = () => {
         // 2. call the function 
         getChannelList()
     }, [])
+
+    // submit form 
+    const onFinish = (formValue) => {
+        console.log(formValue)
+        const {title, content, channel_id} = formValue
+        // 1. proccess form list collected based on the format of api document 
+        const reqData = {
+            title,
+            content,
+            cover: {
+                type: 0, 
+                images: []
+            }, 
+            channel_id
+        }
+        // 2. call api to submit 
+        createArticleAPI(reqData)
+    }
     
     return (
         <div className="publish">
@@ -49,6 +67,7 @@ const Publish = () => {
                     labelCol={{ span: 4 }}
                     wrapperCol={{ span: 16 }}
                     initialValues={{ type: 1 }}
+                    onFinish={onFinish}
                 >
                     <Form.Item
                         label="Title"
