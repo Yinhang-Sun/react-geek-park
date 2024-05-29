@@ -15,10 +15,25 @@ import './index.scss'
 
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import { useEffect, useState } from 'react'
+import { getChannelAPI } from '@/apis/article'
 
 const { Option } = Select
 
 const Publish = () => {
+    // GET channel list 
+    const [channelList, setChannelList] = useState([])
+
+    useEffect(() => {
+        // 1. Encapsulate function, and call api in the function body 
+        const getChannelList = async () => {
+            const res = await getChannelAPI()
+            setChannelList(res.data.channels)
+        }
+        // 2. call the function 
+        getChannelList()
+    }, [])
+    
     return (
         <div className="publish">
             <Card
@@ -48,7 +63,9 @@ const Publish = () => {
                         rules={[{ required: true, message: 'Please select the article channel' }]}
                     >
                         <Select placeholder="Please select the article channel" style={{ width: 400 }}>
-                            <Option value={0}>Recommendation</Option>
+                            {/* value attribute: After the user selects it, 
+                            it will be automatically collected as the submission field of the interface */}
+                            {channelList.map(item => <Option key={item.id} value={item.id}>{item.name}</Option>)}
                         </Select>
                     </Form.Item>
                     <Form.Item
