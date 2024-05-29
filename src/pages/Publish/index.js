@@ -51,6 +51,13 @@ const Publish = () => {
         // 2. call api to submit 
         createArticleAPI(reqData)
     }
+
+    // upload callback 
+    const [imageList, setImageList] = useState([])
+    const onChange = (value) => {
+        console.log('Uploading...', value)
+        setImageList(value.fileList)
+    }
     
     return (
         <div className="publish">
@@ -86,6 +93,26 @@ const Publish = () => {
                             it will be automatically collected as the submission field of the interface */}
                             {channelList.map(item => <Option key={item.id} value={item.id}>{item.name}</Option>)}
                         </Select>
+                    </Form.Item>
+                    <Form.Item label="Cover">
+                    <Form.Item name="type">
+                        <Radio.Group>
+                        <Radio value={1}>Single image</Radio>
+                        <Radio value={3}>Three images</Radio>
+                        <Radio value={0}>No image</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+                    <Upload
+                        listType="picture-card"
+                        showUploadList
+                        action={'http://geek.itheima.net/v1_0/upload'}
+                        name='image'
+                        onChange={onChange}
+                    >
+                        <div style={{ marginTop: 8 }}>
+                        <PlusOutlined />
+                        </div>
+                    </Upload>
                     </Form.Item>
                     <Form.Item
                         label="Content"
