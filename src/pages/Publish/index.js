@@ -11,13 +11,13 @@ import {
     message
 } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import './index.scss'
 
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import { useState } from 'react'
-import { createArticleAPI } from '@/apis/article'
+import { useEffect, useState } from 'react'
+import { createArticleAPI, getArticleById } from '@/apis/article'
 import { useChannel } from '@/hooks/useChannel'
 
 const { Option } = Select
@@ -60,6 +60,22 @@ const Publish = () => {
         setImageType(e.target.value)
     }
 
+    // Backfill data when clicking edit article
+    const [searchParams] = useSearchParams()
+    const articleId = searchParams.get('id')
+    // Get an instance
+    const [form] = Form.useForm()
+    console.log(articleId)
+    useEffect(() => {
+        // 1. get data by id 
+        async function getArticleDetail() {
+            const res = await getArticleById(articleId)
+            form.setFieldsValue(res.data)
+        }
+        getArticleDetail()
+        // 2. call method to backfill 
+    }, [articleId, form])
+
     return (
         <div className="publish">
             <Card
@@ -76,6 +92,7 @@ const Publish = () => {
                     wrapperCol={{ span: 16 }}
                     initialValues={{ type: 0 }}
                     onFinish={onFinish}
+                    form={form}
                 >
                     <Form.Item
                         label="Title"
