@@ -14,8 +14,12 @@ const { RangePicker } = DatePicker
 
 const Article = () => {
     const { channelList } = useChannel()
-
     // Prepare data 
+    // define status enum 
+    const status = {
+        1: <Tag color='warning'>Examination Pending</Tag>, 
+        2: <Tag color='success'>Examination Passed</Tag>
+    }
     const columns = [
         {
             title: 'Cover',
@@ -33,7 +37,9 @@ const Article = () => {
         {
             title: 'Status',
             dataIndex: 'status',
-            render: data => <Tag color="green">Examination Passed</Tag>
+            // data - the status returned from backend 
+            // data === 1 => examination pending; data === 2 => examination passed 
+            render: data => status[data]
         },
         {
             title: 'Publish Date',
