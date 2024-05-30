@@ -70,7 +70,19 @@ const Publish = () => {
         // 1. get data by id 
         async function getArticleDetail() {
             const res = await getArticleById(articleId)
-            form.setFieldsValue(res.data)
+            const data = res.data
+            const { cover } = data
+            form.setFieldsValue({
+                ...data,
+                // backfill image type 
+                type: cover.type
+            })
+            // backfill image list 
+            setImageType(cover.type)
+            // show images ({url:url})
+            setImageList(cover.images.map(url => {
+                return { url }
+            }))
         }
         getArticleDetail()
         // 2. call method to backfill 
@@ -127,6 +139,7 @@ const Publish = () => {
                             name='image'
                             onChange={onChange}
                             maxCount={imageType}
+                            fileList={imageList}
                         >
                             <div style={{ marginTop: 8 }}>
                                 <PlusOutlined />
