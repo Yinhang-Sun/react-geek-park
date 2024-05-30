@@ -16,24 +16,15 @@ import './index.scss'
 
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import { useEffect, useState } from 'react'
-import { createArticleAPI, getChannelAPI } from '@/apis/article'
+import { useState } from 'react'
+import { createArticleAPI } from '@/apis/article'
+import { useChannel } from '@/hooks/useChannel'
 
 const { Option } = Select
 
 const Publish = () => {
     // GET channel list 
-    const [channelList, setChannelList] = useState([])
-
-    useEffect(() => {
-        // 1. Encapsulate function, and call api in the function body 
-        const getChannelList = async () => {
-            const res = await getChannelAPI()
-            setChannelList(res.data.channels)
-        }
-        // 2. call the function 
-        getChannelList()
-    }, [])
+    const { channelList } = useChannel()
 
     // submit form 
     const onFinish = (formValue) => {
