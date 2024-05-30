@@ -37,15 +37,15 @@ const Publish = () => {
     // submit form 
     const onFinish = (formValue) => {
         console.log(formValue)
-        const {title, content, channel_id} = formValue
+        const { title, content, channel_id } = formValue
         // 1. proccess form list collected based on the format of api document 
         const reqData = {
             title,
             content,
             cover: {
-                type: 0, 
+                type: 0,
                 images: []
-            }, 
+            },
             channel_id
         }
         // 2. call api to submit 
@@ -58,7 +58,14 @@ const Publish = () => {
         console.log('Uploading...', value)
         setImageList(value.fileList)
     }
-    
+
+    // Switch cover image type 
+    const [imageType, setImageType] = useState(0)
+    const onTypeChange = (e) => {
+        console.log('Switch cover', e.target.value)
+        setImageType(e.target.value)
+    }
+
     return (
         <div className="publish">
             <Card
@@ -73,7 +80,7 @@ const Publish = () => {
                 <Form
                     labelCol={{ span: 4 }}
                     wrapperCol={{ span: 16 }}
-                    initialValues={{ type: 1 }}
+                    initialValues={{ type: 0 }}
                     onFinish={onFinish}
                 >
                     <Form.Item
@@ -95,24 +102,24 @@ const Publish = () => {
                         </Select>
                     </Form.Item>
                     <Form.Item label="Cover">
-                    <Form.Item name="type">
-                        <Radio.Group>
-                        <Radio value={1}>Single image</Radio>
-                        <Radio value={3}>Three images</Radio>
-                        <Radio value={0}>No image</Radio>
-                        </Radio.Group>
-                    </Form.Item>
-                    <Upload
-                        listType="picture-card"
-                        showUploadList
-                        action={'http://geek.itheima.net/v1_0/upload'}
-                        name='image'
-                        onChange={onChange}
-                    >
-                        <div style={{ marginTop: 8 }}>
-                        <PlusOutlined />
-                        </div>
-                    </Upload>
+                        <Form.Item name="type">
+                            <Radio.Group onChange={onTypeChange}>
+                                <Radio value={1}>Single image</Radio>
+                                <Radio value={3}>Three images</Radio>
+                                <Radio value={0}>No image</Radio>
+                            </Radio.Group>
+                        </Form.Item>
+                        {imageType > 0 && <Upload
+                            listType="picture-card"
+                            showUploadList
+                            action={'http://geek.itheima.net/v1_0/upload'}
+                            name='image'
+                            onChange={onChange}
+                        >
+                            <div style={{ marginTop: 8 }}>
+                                <PlusOutlined />
+                            </div>
+                        </Upload>}
                     </Form.Item>
                     <Form.Item
                         label="Content"
