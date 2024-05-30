@@ -128,6 +128,16 @@ const Article = () => {
         // when reqData changed, the useEffect function will be triggered 
     }
 
+    // pagination 
+    const onPageChange = (page) => {
+        console.log(page)
+        // Modify parameter dependencies, trigger data retrieval and list rendering
+        setReqData({
+            ...reqData, 
+            page
+        })
+    }
+
 
     return (
         <div>
@@ -172,7 +182,11 @@ const Article = () => {
             </Card>
             {/* Table area */}
             <Card title={`According to the filter criteria, ${count} results were found:`}>
-                <Table rowKey="id" columns={columns} dataSource={list} />
+                <Table rowKey="id" columns={columns} dataSource={list} pagination={{
+                    total: count, 
+                    pageSize: reqData.per_page, 
+                    onChange: onPageChange
+                }}/>
             </Card>
         </div>
     )
