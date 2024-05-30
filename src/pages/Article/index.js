@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Card, Breadcrumb, Form, Button, Radio, DatePicker, Select } from 'antd'
+import { Card, Breadcrumb, Form, Button, Radio, DatePicker, Select, Popconfirm } from 'antd'
 
 // import resources 
 import { Table, Tag, Space } from 'antd'
@@ -7,7 +7,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import img404 from '@/assets/error.png'
 import { useChannel } from '@/hooks/useChannel'
 import { useEffect, useState } from 'react'
-import { getArticleListAPI } from '@/apis/article'
+import { getArticleListAPI, delArticleAPI } from '@/apis/article'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -63,12 +63,21 @@ const Article = () => {
                 return (
                     <Space size="middle">
                         <Button type="primary" shape="circle" icon={<EditOutlined />} />
-                        <Button
-                            type="primary"
-                            danger
-                            shape="circle"
-                            icon={<DeleteOutlined />}
-                        />
+                        <Popconfirm
+                            title="Delete article"
+                            description="Are you sure to delete this article?"
+                            onConfirm={() => onConfirm(data)}
+                            // onCancel={cancel}
+                            okText="Yes"
+                            cancelText="No"
+                        >
+                            <Button
+                                type="primary"
+                                danger
+                                shape="circle"
+                                icon={<DeleteOutlined />}
+                            />
+                        </Popconfirm>
                     </Space>
                 )
             }
@@ -133,8 +142,17 @@ const Article = () => {
         console.log(page)
         // Modify parameter dependencies, trigger data retrieval and list rendering
         setReqData({
-            ...reqData, 
+            ...reqData,
             page
+        })
+    }
+
+    // Delete article 
+    const onConfirm = async (data) => {
+        console.log('delete click', data)
+        await delArticleAPI(data.id)
+        setReqData({
+            ...reqData, 
         })
     }
 
@@ -183,10 +201,10 @@ const Article = () => {
             {/* Table area */}
             <Card title={`According to the filter criteria, ${count} results were found:`}>
                 <Table rowKey="id" columns={columns} dataSource={list} pagination={{
-                    total: count, 
-                    pageSize: reqData.per_page, 
+                    total: count,
+                    pageSize: reqData.per_page,
                     onChange: onPageChange
-                }}/>
+                }} />
             </Card>
         </div>
     )
