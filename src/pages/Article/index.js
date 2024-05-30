@@ -8,11 +8,13 @@ import img404 from '@/assets/error.png'
 import { useChannel } from '@/hooks/useChannel'
 import { useEffect, useState } from 'react'
 import { getArticleListAPI, delArticleAPI } from '@/apis/article'
+import { useNavigate } from 'react-router-dom'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
 
 const Article = () => {
+    const navigate = useNavigate()
     const { channelList } = useChannel()
     // Prepare data 
     // define status enum 
@@ -62,7 +64,7 @@ const Article = () => {
             render: data => {
                 return (
                     <Space size="middle">
-                        <Button type="primary" shape="circle" icon={<EditOutlined />} />
+                        <Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => navigate(`/publish?id=${data.id}`)}/>
                         <Popconfirm
                             title="Delete article"
                             description="Are you sure to delete this article?"
