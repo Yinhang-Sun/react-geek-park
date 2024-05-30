@@ -17,7 +17,7 @@ const Article = () => {
     // Prepare data 
     // define status enum 
     const status = {
-        1: <Tag color='warning'>Examination Pending</Tag>, 
+        1: <Tag color='warning'>Examination Pending</Tag>,
         2: <Tag color='success'>Examination Passed</Tag>
     }
     const columns = [
@@ -90,18 +90,44 @@ const Article = () => {
         }
     ]
 
+    // filter articles 
+    // 1. prepare parameters 
+    const [reqData, setReqData] = useState({
+        status: '',
+        channel_id: '',
+        begin_pubdate: '',
+        end_pubdate: '',
+        page: 1,
+        per_page: 4
+    })
+
     // get article list 
     const [list, setList] = useState([])
     const [count, setCount] = useState(0)
     useEffect(() => {
         async function getList() {
-            const res = await getArticleListAPI()
+            const res = await getArticleListAPI(reqData)
             setList(res.data.results)
             setCount(res.data.total_count)
         }
         getList()
-    },[])
-    
+    }, [reqData])
+
+    // 2. get filtering data 
+    const onFinish = (formValue) => {
+        console.log(formValue)
+        // 3. put the data collected from formValue into params 
+        setReqData({
+            ...reqData,
+            channel_id: formValue.channel_id,
+            status: formValue.status,
+            begin_pubdate: formValue.date[0].format('YYYY-MM-DD'),
+            end_pubdate: formValue.date[1].format('YYYY-MM-DD')
+        })
+        // 4. pull article list again + render table: logic repeat 
+        // when reqData changed, the useEffect function will be triggered 
+    }
+
 
     return (
         <div>
@@ -114,11 +140,11 @@ const Article = () => {
                 }
                 style={{ marginBottom: 20 }}
             >
-                <Form initialValues={{ status: '' }}>
+                <Form initialValues={{ status: '' }} onFinish={onFinish}>
                     <Form.Item label="Status" name="status">
                         <Radio.Group>
                             <Radio value={''}>All</Radio>
-                            <Radio value={0}>Draft</Radio>
+                            <Radio value={0}>Examination Pending</Radio>
                             <Radio value={2}>Examination Passed</Radio>
                         </Radio.Group>
                     </Form.Item>
