@@ -84,7 +84,10 @@ const Publish = () => {
                 return { url }
             }))
         }
-        getArticleDetail()
+        // Only when there is articleId, call this method 
+        if(articleId) {
+            getArticleDetail()
+        }
         // 2. call method to backfill 
     }, [articleId, form])
 
@@ -94,7 +97,7 @@ const Publish = () => {
                 title={
                     <Breadcrumb items={[
                         { title: <Link to={'/'}>Home</Link> },
-                        { title: 'Publish Article' },
+                        { title: `${articleId ? 'Edit':'Publish'} Article` },
                     ]}
                     />
                 }
