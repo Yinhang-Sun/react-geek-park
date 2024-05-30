@@ -18,3 +18,12 @@ export function createArticleAPI(data) {
         data
     })
 }
+
+// 3. get article list 
+export function getArticleListAPI(params) {
+    return request ({
+        url: '/mp/articles', 
+        method: 'GET', 
+        params
+    })
+}

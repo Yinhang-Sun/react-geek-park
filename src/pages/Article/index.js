@@ -6,6 +6,8 @@ import { Table, Tag, Space } from 'antd'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import img404 from '@/assets/error.png'
 import { useChannel } from '@/hooks/useChannel'
+import { useEffect, useState } from 'react'
+import { getArticleListAPI } from '@/apis/article'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -82,6 +84,19 @@ const Article = () => {
         }
     ]
 
+    // get article list 
+    const [list, setList] = useState([])
+    const [count, setCount] = useState(0)
+    useEffect(() => {
+        async function getList() {
+            const res = await getArticleListAPI()
+            setList(res.data.results)
+            setCount(res.data.total_count)
+        }
+        getList()
+    },[])
+    
+
     return (
         <div>
             <Card
@@ -124,8 +139,8 @@ const Article = () => {
                 </Form>
             </Card>
             {/* Table area */}
-            <Card title={`According to the filter criteria, count results were found:`}>
-                <Table rowKey="id" columns={columns} dataSource={data} />
+            <Card title={`According to the filter criteria, ${count} results were found:`}>
+                <Table rowKey="id" columns={columns} dataSource={list} />
             </Card>
         </div>
     )
