@@ -36,9 +36,18 @@ export function delArticleAPI(id) {
     })
 }
 
-// get article detail 
+// 5. get article detail 
 export function getArticleById(id) {
     return request({
         url: `/mp/articles/${id}`
+    })
+}
+
+// 6. update article form list 
+export function updateArticleAPI(data) {
+    return request({
+        url: `/mp/articles/${data.id}?draft=false`,
+        method: 'PUT',
+        data
     })
 }

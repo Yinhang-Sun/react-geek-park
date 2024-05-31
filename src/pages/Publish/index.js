@@ -17,7 +17,7 @@ import './index.scss'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { useEffect, useState } from 'react'
-import { createArticleAPI, getArticleById } from '@/apis/article'
+import { createArticleAPI, getArticleById, updateArticleAPI } from '@/apis/article'
 import { useChannel } from '@/hooks/useChannel'
 
 const { Option } = Select
@@ -38,12 +38,25 @@ const Publish = () => {
             content,
             cover: {
                 type: imageType, // cover mode
-                images: imageList.map(item => item.response.data.url) // images list 
+                // Editing and publishing using different logic
+                images: imageList.map(item => {
+                    if (item.response) {
+                        return item.response.data.url
+                    } else {
+                        return item.url
+                    }
+                }) // images list 
             },
             channel_id
         }
         // 2. call api to submit 
-        createArticleAPI(reqData)
+        // call different apis: publish article -> createArticleAPI; editing article -> update 
+        if (articleId) {
+            // update api 
+            updateArticleAPI({ ...reqData, id: articleId })
+        } else {
+            createArticleAPI(reqData)
+        }
     }
 
     // upload callback 
@@ -85,7 +98,7 @@ const Publish = () => {
             }))
         }
         // Only when there is articleId, call this method 
-        if(articleId) {
+        if (articleId) {
             getArticleDetail()
         }
         // 2. call method to backfill 
@@ -97,7 +110,7 @@ const Publish = () => {
                 title={
                     <Breadcrumb items={[
                         { title: <Link to={'/'}>Home</Link> },
-                        { title: `${articleId ? 'Edit':'Publish'} Article` },
+                        { title: `${articleId ? 'Edit' : 'Publish'} Article` },
                     ]}
                     />
                 }
