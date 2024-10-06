@@ -1,4 +1,4 @@
-// router configuration test
+// router configuration
 import Layout from "@/pages/Layout";
 import Login from "@/pages/Login";
 
