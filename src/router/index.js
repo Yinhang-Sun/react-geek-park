@@ -1,20 +1,20 @@
-// router configuration
+// Router configuration
 import Layout from "@/pages/Layout";
 import Login from "@/pages/Login";
 
 import { createBrowserRouter } from "react-router-dom";
 import { AuthRoute } from "@/components/AuthRoute";
-// import Home from "@/pages/Home";
-// import Article from "@/pages/Article";
-// import Publish from "@/pages/Publish";
+// Import Home from "@/pages/Home";
+// Import Article from "@/pages/Article";
+// Import Publish from "@/pages/Publish";
 import { Suspense, lazy } from "react";
 
-// 1. import component by lazy function 
+// 1. Import component by lazy function 
 const Publish = lazy(() => import('@/pages/Publish'))
 const Article = lazy(() => import('@/pages/Article'))
 const Home = lazy(() => import('@/pages/Article'))
 
-// configure router instance 
+// Configure router instance 
 const router = createBrowserRouter([
     {
         path: "/",
