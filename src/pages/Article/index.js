@@ -17,7 +17,7 @@ const Article = () => {
     const navigate = useNavigate()
     const { channelList } = useChannel()
     // Prepare data 
-    // define status enum 
+    // Define status enum 
     const status = {
         1: <Tag color='warning'>Examination Pending</Tag>,
         2: <Tag color='success'>Examination Passed</Tag>
