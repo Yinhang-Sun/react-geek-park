@@ -101,7 +101,7 @@ const Article = () => {
         }
     ]
 
-    // filter articles 
+    // Filter articles 
     // 1. prepare parameters 
     const [reqData, setReqData] = useState({
         status: '',
