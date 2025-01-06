@@ -102,7 +102,7 @@ const Article = () => {
     ]
 
     // Filter articles 
-    // 1. prepare parameters 
+    // 1. Prepare parameters 
     const [reqData, setReqData] = useState({
         status: '',
         channel_id: '',
