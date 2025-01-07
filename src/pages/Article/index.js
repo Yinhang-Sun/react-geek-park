@@ -112,7 +112,7 @@ const Article = () => {
         per_page: 4
     })
 
-    // get article list 
+    // Get article list 
     const [list, setList] = useState([])
     const [count, setCount] = useState(0)
     useEffect(() => {
