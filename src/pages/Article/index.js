@@ -124,7 +124,7 @@ const Article = () => {
         getList()
     }, [reqData])
 
-    // 2. get filtering data 
+    // 2. Get filtering data 
     const onFinish = (formValue) => {
         console.log(formValue)
         // 3. put the data collected from formValue into params 
