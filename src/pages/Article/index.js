@@ -127,7 +127,7 @@ const Article = () => {
     // 2. Get filtering data 
     const onFinish = (formValue) => {
         console.log(formValue)
-        // 3. put the data collected from formValue into params 
+        // 3. Put the data collected from formValue into params 
         setReqData({
             ...reqData,
             channel_id: formValue.channel_id,
