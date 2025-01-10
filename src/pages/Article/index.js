@@ -135,7 +135,7 @@ const Article = () => {
             begin_pubdate: formValue.date[0].format('YYYY-MM-DD'),
             end_pubdate: formValue.date[1].format('YYYY-MM-DD')
         })
-        // 4. pull article list again + render table: logic repeat 
+        // 4. Pull article list again + render table: logic repeat 
         // when reqData changed, the useEffect function will be triggered 
     }
 
