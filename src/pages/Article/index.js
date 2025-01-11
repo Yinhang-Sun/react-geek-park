@@ -139,7 +139,7 @@ const Article = () => {
         // when reqData changed, the useEffect function will be triggered 
     }
 
-    // pagination 
+    // Pagination 
     const onPageChange = (page) => {
         console.log(page)
         // Modify parameter dependencies, trigger data retrieval and list rendering
