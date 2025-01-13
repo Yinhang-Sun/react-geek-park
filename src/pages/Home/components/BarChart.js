@@ -7,7 +7,7 @@ import { useEffect, useRef } from 'react';
 const BarChart = ({title}) => {
     const chartRef = useRef(null)
     useEffect(() => {
-        // make sure the dom can be used and then 
+        // Make sure the dom can be used and then 
         // 1. getting the dom node for rendering charts 
         const chartDom = chartRef.current
 
