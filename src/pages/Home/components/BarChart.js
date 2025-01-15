@@ -8,7 +8,7 @@ const BarChart = ({title}) => {
     const chartRef = useRef(null)
     useEffect(() => {
         // Make sure the dom can be used and then 
-        // 1. getting the dom node for rendering charts 
+        // 1. Getting the dom node for rendering charts 
         const chartDom = chartRef.current
 
         // 2. initialization to get an chart instance 
