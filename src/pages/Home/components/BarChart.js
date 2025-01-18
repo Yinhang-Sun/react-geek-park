@@ -11,7 +11,7 @@ const BarChart = ({title}) => {
         // 1. Getting the dom node for rendering charts 
         const chartDom = chartRef.current
 
-        // 2. initialization to get an chart instance 
+        // 2. Initialization to get an chart instance 
         const myChart = echarts.init(chartDom);
 
         // 3. prepare charts parameters 
