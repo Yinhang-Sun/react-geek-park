@@ -14,7 +14,7 @@ const BarChart = ({title}) => {
         // 2. Initialization to get an chart instance 
         const myChart = echarts.init(chartDom);
 
-        // 3. prepare charts parameters 
+        // 3. Prepare charts parameters 
         const option = {
             title: {
                 text: title
