@@ -33,7 +33,7 @@ const BarChart = ({title}) => {
                 }
             ]
         };
-        // 4. complete chart rendering using chart parameters 
+        // 4. Complete chart rendering using chart parameters 
         option && myChart.setOption(option);
     }, [])
     return <div ref={chartRef} style={{ width: '500px', height: '400px' }}></div>
