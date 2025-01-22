@@ -40,8 +40,8 @@ const GeekLayout = () => {
         navigate(path)
     }
 
-    // 反向高亮
-    // 1. 获取当前路由路径
+    // Reverse highlight
+    // 1. Get the current routing path
     const location = useLocation()
     console.log(location.pathname)
     const selectedkey = location.pathname
