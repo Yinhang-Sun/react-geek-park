@@ -52,12 +52,7 @@ const GeekLayout = () => {
         dispatch(fetchUserInfo())
     }, [dispatch])
 
-    // logout confirm callback 
-    const onConfirm = () => {
-        console.log('Confirm logout')
-        dispatch(clearUserInfo())
-        navigate('/login')
-    }
+    
 
     const name = useSelector(state => state.user.userInfo.name)
     return (
