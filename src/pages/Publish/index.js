@@ -26,7 +26,7 @@ const Publish = () => {
     // GET channel list 
     const { channelList } = useChannel()
 
-    // submit form 
+    // Submit form 
     const onFinish = (formValue) => {
         console.log(formValue)
         // check if the cover imageType match with the number of imageList or not 
