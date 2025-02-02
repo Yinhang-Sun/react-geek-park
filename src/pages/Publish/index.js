@@ -32,7 +32,7 @@ const Publish = () => {
         // Check if the cover imageType match with the number of imageList or not 
         if (imageList.length !== imageType) return message.warning('The cover image type does not match the image number!')
         const { title, content, channel_id } = formValue
-        // 1. proccess form list collected based on the format of api document 
+        // 1. Proccess form list collected based on the format of api document 
         const reqData = {
             title,
             content,
