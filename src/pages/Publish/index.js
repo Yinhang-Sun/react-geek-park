@@ -49,14 +49,7 @@ const Publish = () => {
             },
             channel_id
         }
-        // 2. call api to submit 
-        // call different apis: publish article -> createArticleAPI; editing article -> update 
-        if (articleId) {
-            // update api 
-            updateArticleAPI({ ...reqData, id: articleId })
-        } else {
-            createArticleAPI(reqData)
-        }
+        
     }
 
     // upload callback 
