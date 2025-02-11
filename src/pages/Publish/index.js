@@ -59,12 +59,7 @@ const Publish = () => {
         }
     }
 
-    // upload callback 
-    const [imageList, setImageList] = useState([])
-    const onChange = (value) => {
-        console.log('Uploading...', value)
-        setImageList(value.fileList)
-    }
+    
 
     // Switch cover image type 
     const [imageType, setImageType] = useState(0)
